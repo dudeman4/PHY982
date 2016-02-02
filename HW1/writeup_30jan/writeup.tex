@@ -19,7 +19,7 @@ Beryllium-11 is a one-neutron halo nucleus with 4 protons and 7 neutrons. Accord
 \begin{figure}
 \centering
 	\includegraphics[width=\textwidth]{figures/n7isotones.png}
-	\caption{The evolution of single particl levels for the $N=7$ isotones (from \citep{Schmitt2011}).}
+	\caption{The evolution of single particl levels for the $N=7$ isotones (from \citep{Schmitt2011}). It is clear that the $1/2 ^+$ state drops below the $1/2 ^-$ in energy for $^{11}$Be.}
 	\label{fig:n7isotones}
 \end{figure}
 
@@ -27,7 +27,7 @@ Beryllium-11 is a one-neutron halo nucleus with 4 protons and 7 neutrons. Accord
 
 %which is certainly related to the fact that $^{11}$Be is a halo nucleus and not a truly bound state $\leftarrow$ \textit{\textbf{Is it correct to say that halo nuclei are not "truly bound"? And is this a sufficient answer?}} . . . halo nuclei are considered bound - Be-11's ground state is bound by 0.5 MeV and its first excited by 0.18 MeV
 
-Slightly above the ground state in energy we find the $1/2^-$ state we otherwise might have expected to be the ground state, and above that is the $5/2^+$ state that follows according to the shell model. After that, things start to diverge more noticeably from shell model predictions, but up to this point, the system behaves almost like one would expect via the shell model except for the ground $1/2^-$ state.
+Slightly above the ground state in energy we find the $1/2^-$ state we otherwise might have expected to be the ground state, and above that is the $5/2^+$ state that follows according to the shell model. After that, things start to diverge from shell model predictions, but up to this point, the system behaves almost like one would expect via the shell model except for the ground state.
 
 \section*{Method}\nonumber
 
@@ -76,7 +76,7 @@ The Runge-Kutta method solves a first order DE iteratively. For a known $y(R)$, 
 	y(R+h) \approx y(R) + h \sum_{i=1}^N \omega_i y'(R + \nu_i h,y(R + \nu_ih))
 	\label{eq:rkaprx}
 \end{equation}
-where $h$ is some small step size and primes denote differentiation with respect to R. Let $\nu_i =0$ so that the first term in the sum becomes $k_1 = h y' (R,y(R))$ - this is known from the initial conditions. Now use $k_1$ to approximate the second term $k_2 = h y' (R+\alpha h, y(R) + \beta k_1)$. Now, eq.~\ref{eq:rkaprx} may be written
+where $h$ is some small step size and primes denote differentiation with respect to R. Let $\nu_i =0$ so that the first term in the sum becomes $k_1 = h y' (R,y(R))$ - this is known from the initial conditions and the DE describing how $y'$ depends on $y$. Now use $k_1$ to approximate the second term $k_2 = h y' (R+\alpha h, y(R) + \beta k_1)$. Now, eq.~\ref{eq:rkaprx} may be written
 
 \begin{equation}
 	y(R+h) \approx y(R) + \omega_1 k_1 + \omega_2 k_2
@@ -96,7 +96,7 @@ The python code we wrote to compute the radial wavefunctions and phase shifts fo
 
 \begin{enumerate}
 	\item Define the matching radius, $L$ value, step size, and physical parameters
-	\item Set initial conditions ($y_0 = 0, y_0 ' = 0.1$) 
+	\item Set initial conditions ($y_0 = 0, y_0 ' = 1.0$) 
 	\item Define functions to compute $f(R)u_L(R)$ (from eq.~\ref{eq:seq}), the Hankel functions (in terms of the cylindrical Bessel functions) and their derivatives
 	\item Create an array to hold values of the wavefunction and its derivative at each step along our grid out to the matching radius
 	\item Apply the Runge-Kutta formula to populate the array
@@ -134,36 +134,38 @@ The python code we wrote to compute the radial wavefunctions and phase shifts fo
 %% E = 4.0 MeV
 \begin{figure}
 \centering
-	\includegraphics[width=0.75\textwidth]{figures/E40/magnitude0.png}
-	\caption{The magnitude of the radial wavefunction for $E = 4.0$ MeV and $l=0$.}
+	\includegraphics[width=0.75\textwidth]{figures/E30/magnitude0.png}
+	\caption{The magnitude of the radial wavefunction for $E = 3.0$ MeV and $l=0$.}
 	\label{fig:e01l0}
 \end{figure}
 
 \begin{figure}
 \centering
-	\includegraphics[width=0.75\textwidth]{figures/E40/magnitude1.png}
-	\caption{The magnitude of the radial wavefunction for $E = 4.0$ MeV and $l=1$.}
+	\includegraphics[width=0.75\textwidth]{figures/E30/magnitude1.png}
+	\caption{The magnitude of the radial wavefunction for $E = 3.0$ MeV and $l=1$.}
 	\label{fig:e01l1}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-	\includegraphics[width=0.75\textwidth]{figures/E40/magnitude2.png}
-	\caption{The magnitude of the radial wavefunction for $E = 4.0$ MeV and $l=2$.}
+	\includegraphics[width=0.75\textwidth]{figures/E30/magnitude2.png}
+	\caption{The magnitude of the radial wavefunction for $E = 3.0$ MeV and $l=2$.}
 	\label{fig:e01l2}
 \end{figure}
 
 
 \section*{Phase Shifts and Resonances}
 
-Figure~\ref{fig:phase} plots the phase shifts $\delta(E)$ for $l=0,1,2$ over the energy range $[0.1,4.0]$ MeV. A weak resonance appears for $l=2$ around $E=1.5$ MeV (width $\sim 100$ keV). In terms of the $^{11}$Be continuum structure, this may be interpreted as the $5/2 ^+$ second excited state which has a measured energy of 1.8 MeV and width of 100 keV. This second excited state energy less the 500 keV $S _n $ for $^{11}$Be is close to our calculated ``resonance'' energy and width.
+Figure~\ref{fig:phase} plots the phase shifts $\delta(E)$ for $l=0,1,2$ over the energy range $[0.1,4.0]$ MeV. A weak resonance appears for $l=2$ around $E=1.5$ MeV. We estimate the width by approximating the slope of the sharply rising region of the $\delta (E)$ curve to be $\sim 260$ keV. In terms of the $^{11}$Be continuum structure, this could be interpreted as the $5/2 ^+$ second excited state which has a measured energy of 1.8 MeV and width of 100 keV. This second excited state energy less the 500 keV $S _n $ for $^{11}$Be is close to our calculated ``resonance'' energy, though our estimated width is larger by a factor of 2.
 
 \begin{figure}
 \centering
 	\includegraphics[width=0.85\textwidth]{figures/phase.png}
-	\caption{Phase shifts $\delta(E)$ for $l=0,1,2$. A weak resonance appears for $l=2$ near $E=1.5$ MeV with a width of $\sim 100$ keV.}
+	\caption{Phase shifts $\delta(E)$ for $l=0,1,2$. A weak resonance appears for $l=2$ near $E=1.5$ MeV with a width of $\sim 260$ keV.}
 	\label{fig:phase}
 \end{figure}
+
+\clearpage
 
 %\begin{table}
 %\centering
