@@ -88,7 +88,7 @@ Taylor expanding the LHS of eq.~\ref{eq:rk1}, substituting for $k_{1,2}$ and den
 	hf + \frac{h^2}{2} \left ( f' + f \frac{df}{dy} \right ) = \omega_1 hf + \omega_2 \left  ( hf + \alpha h^2 f' + \beta h^2 f \frac{df}{dy} \right )
 	\label{eq:rk2}
 \end{equation}
-Equate coefficients of $hf,f',f df/dy$ to constrain $\alpha, \beta, \omega_{1,2}$. This procedure may be used to produce higher order, more accurate Runge-Kutta formula by keeping more terms in the sum from eq.~\ref{eq:rkaprx} and going to higher order in the Taylor expansion of the LHS of eq.~\ref{eq:rk1} to determine the constants.
+Equate coefficients of $hf,f',f df/dy$ to constrain $\alpha, \beta, \omega_{1,2}$. A higher order, more accurate Runge-Kutta formula is produced by keeping more terms in the sum from eq.~\ref{eq:rkaprx} and going to higher order in the Taylor expansion of the LHS of eq.~\ref{eq:rk1} to determine the constants. For our code, we use fourth order Runge-Kutta.
 
 \subsection*{Python Code}
 
@@ -98,20 +98,83 @@ The python code we wrote to compute the radial wavefunctions and phase shifts fo
 	\item Define the matching radius, $L$, step size, and physical parameters
 	\item Set initial conditions ($y_0 = 0, y_0 ' = 0.1$) 
 	\item Define functions to compute $f(R)u_L(R)$ (from eq.~\ref{eq:seq}), the Hankel functions and their derivatives
-	\item Create an array to hold values of the wavefunction and its derivative at each step along our grid
+	\item Create an array to hold values of the wavefunction and its derivative at each step along our grid out to the matching radius
 	\item Apply the Runge-Kutta formula to populate the array
 	\item Compute $\mathbf{S}_L$ from the matching condition
 	\item Apply this routine for a range of energies to plot phase shift versus energy
 \end{enumerate}
 
+%\clearpage
+
 \section*{Wavefunction plots}
 
-\begin{figure}
+%% E = 0.1 MeV
+\begin{figure}[h]
+\centering
+	\includegraphics[width=0.75\textwidth]{figures/E01/magnitude0.png}
+	\caption{The magnitude of the radial wavefunction for $E = 0.1$ MeV and $l=0$.}
+	\label{fig:e01l0}
+\end{figure}
 
+\begin{figure}
+\centering
+	\includegraphics[width=0.75\textwidth]{figures/E01/magnitude1.png}
+	\caption{The magnitude of the radial wavefunction for $E = 0.1$ MeV and $l=1$.}
+	\label{fig:e01l1}
+\end{figure}
+
+\begin{figure}
+\centering
+	\includegraphics[width=0.75\textwidth]{figures/E01/magnitude2.png}
+	\caption{The magnitude of the radial wavefunction for $E = 0.1$ MeV and $l=2$.}
+	\label{fig:e01l2}
+\end{figure}
+
+
+%% E = 4.0 MeV
+\begin{figure}
+\centering
+	\includegraphics[width=0.75\textwidth]{figures/E40/magnitude0.png}
+	\caption{The magnitude of the radial wavefunction for $E = 4.0$ MeV and $l=0$.}
+	\label{fig:e01l0}
+\end{figure}
+
+\begin{figure}
+\centering
+	\includegraphics[width=0.75\textwidth]{figures/E40/magnitude1.png}
+	\caption{The magnitude of the radial wavefunction for $E = 4.0$ MeV and $l=1$.}
+	\label{fig:e01l1}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=0.75\textwidth]{figures/E40/magnitude2.png}
+	\caption{The magnitude of the radial wavefunction for $E = 4.0$ MeV and $l=2$.}
+	\label{fig:e01l2}
 \end{figure}
 
 
 \section*{Phase Shifts and Resonances}
+
+Figure~\ref{fig:phase} plots the phase shifts $\delta(E)$ for $l=0,1,2$ over the energy range $[0.1,4.0]$ MeV. A weak resonance appears for $l=2$ around $E=1.5$ MeV (width $\sim 100$ keV). In terms of the $^{11}$Be continuum structure, this may be interpreted as the $5/2 ^+$ second excited state which has a measured energy of 1.8 MeV and width of 100 keV. This is close to our calculated ``resonance'' energy and width.
+
+\begin{figure}
+\centering
+	\includegraphics[width=0.85\textwidth]{figures/phase.png}
+	\caption{Phase shifts $\delta(E)$ for $l=0,1,2$. A weak resonance appears for $l=2$ near $E=1.5$ MeV with a width of $\sim 100$ keV.}
+	\label{fig:phase}
+\end{figure}
+
+%\begin{table}
+%\centering
+%	\begin{tabular}{ c | c | c }
+%	$l$ & $\delta (E) $ & $\Gamma$ [MeV]\\
+%\hline
+%	0 & & \\
+%	1 & & \\
+%	2 & & \\
+%	\end{tabular}
+%	\caption{
 
 %%\bibliographystyle{apj}
 \bibliographystyle{plain}
