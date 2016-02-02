@@ -95,9 +95,9 @@ Equate coefficients of $hf,f',f df/dy$ to constrain $\alpha, \beta, \omega_{1,2}
 The python code we wrote to compute the radial wavefunctions and phase shifts follows the basic outline:
 
 \begin{enumerate}
-	\item Define the matching radius, $L$, step size, and physical parameters
+	\item Define the matching radius, $L$ value, step size, and physical parameters
 	\item Set initial conditions ($y_0 = 0, y_0 ' = 0.1$) 
-	\item Define functions to compute $f(R)u_L(R)$ (from eq.~\ref{eq:seq}), the Hankel functions and their derivatives
+	\item Define functions to compute $f(R)u_L(R)$ (from eq.~\ref{eq:seq}), the Hankel functions (in terms of the cylindrical Bessel functions) and their derivatives
 	\item Create an array to hold values of the wavefunction and its derivative at each step along our grid out to the matching radius
 	\item Apply the Runge-Kutta formula to populate the array
 	\item Compute $\mathbf{S}_L$ from the matching condition
@@ -156,7 +156,7 @@ The python code we wrote to compute the radial wavefunctions and phase shifts fo
 
 \section*{Phase Shifts and Resonances}
 
-Figure~\ref{fig:phase} plots the phase shifts $\delta(E)$ for $l=0,1,2$ over the energy range $[0.1,4.0]$ MeV. A weak resonance appears for $l=2$ around $E=1.5$ MeV (width $\sim 100$ keV). In terms of the $^{11}$Be continuum structure, this may be interpreted as the $5/2 ^+$ second excited state which has a measured energy of 1.8 MeV and width of 100 keV. This is close to our calculated ``resonance'' energy and width.
+Figure~\ref{fig:phase} plots the phase shifts $\delta(E)$ for $l=0,1,2$ over the energy range $[0.1,4.0]$ MeV. A weak resonance appears for $l=2$ around $E=1.5$ MeV (width $\sim 100$ keV). In terms of the $^{11}$Be continuum structure, this may be interpreted as the $5/2 ^+$ second excited state which has a measured energy of 1.8 MeV and width of 100 keV. This second excited state energy less the 500 keV $S _n $ for $^{11}$Be is close to our calculated ``resonance'' energy and width.
 
 \begin{figure}
 \centering
