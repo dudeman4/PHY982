@@ -1,0 +1,70 @@
+ENTRY            10391   20030102   20030219   20050926       0000
+SUBENT        10391001   20030102   20030219   20050926       0000
+BIB                 12         24
+INSTITUTE  (1USAKTY)
+REFERENCE  (J,PR/C,10,1087,197409)
+AUTHOR     (F.D.McDaniel,J.D.Brandenberger,G.P.Glasgow,
+           H.G.Leighton)
+TITLE      Elastic and inelastic scattering of 1.5-MeV neutrons
+            by the even-A isotopes of zirconium and molybdenum
+FACILITY   (VDG,1USAKTY) Van de Graaff
+INC-SOURCE (P-T) T(p,n) source
+METHOD     (TOF) Time-of-flight
+DETECTOR   (SCIN) NE218 liquid organic scintillator
+MONITOR    (1-H-1(N,EL)1-H-1,,SIG) Normalized to n-p scattering.
+CORRECTION Corrected for:
+           . background,
+           . multiple scattering in sample and polyethylene
+             monitor,
+           . flux attenuation,
+           . deadtime.
+STATUS     Tabulated data received from Brandenberger, 1974/5/31.
+           No reply to author proof.
+HISTORY    (19740606C)
+           (19751117A) Correction to SAN 13
+           (19830525A) Converted to REACTION formalism
+           (19840419A) BIB correction.
+           (20030102A) Converted to new date formats, lower case.
+ENDBIB              24
+COMMON               2          3
+EN         EN-RSL
+MEV        MEV
+ 1.5        0.084
+ENDCOMMON            3
+ENDSUBENT           31
+SUBENT        10391002   20030102   20030219   20050926       0000
+BIB                  3         12
+REACTION   (40-ZR-90(N,EL)40-ZR-90,,DA)
+SAMPLE     Isotopic composition of sample: 90Zr (97.72%),
+                             91Zr (1.07%), 92Zr (0.51%),
+                             94Zr (0.56%), 96Zr (0.15%).
+ERR-ANALYS (DATA-ERR) Error given includes relative uncertainty
+            only.
+           Normalization uncertainty includes:
+            . flux attenuation and multiple scattering
+              corrections (<1.5%),
+            . n-p cross section uncertainty (<1%),
+            . efficiency curve (5.2%),
+            . n-p counting statistics.
+ENDBIB              12
+NOCOMMON             0          0
+DATA                 3         14
+ANG-CM     DATA-CM    DATA-ERR
+ADEG       MB/SR      MB/SR
+  30.32     986.58     30.89
+  40.41     819.85     20.61
+  50.49     596.63     13.99
+  60.56     439.72     11.05
+  70.60     362.27      8.31
+  80.63     293.64      8.24
+  90.64     213.18      8.23
+ 100.63     201.33      7.75
+ 110.60     179.52      7.48
+ 120.56     174.66      7.14
+ 130.49     170.59      7.29
+ 140.41     218.13      6.76
+ 150.32     285.83      7.11
+ 155.27     323.47      7.45
+ENDDATA             16
+ENDSUBENT           33
+ENDENTRY             2
