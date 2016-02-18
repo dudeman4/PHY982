@@ -1,6 +1,7 @@
 \documentclass[]{scrartcl}
 
 \usepackage{graphicx}
+\usepackage{multirow}
 %%\usepackage{amsmath}
 
 \usepackage{natbib}
@@ -49,90 +50,229 @@ In this project, we study the cases of proton and neutron elastic scattering fro
 
 \subsection*{Part II - Fitting}
 
-To explore \texttt{fresco}'s application to fitting experimental data (via \texttt{sfresco}), we use the data for $ ^{100} \mathrm{Mo} (p,p)$ from \citep{Sinha1972}, which includes data for elastic scattering at three incident energies: $19.85,30.3,49.45$ MeV. We take the $49.45$ MeV data to include in our \texttt{sfresco} input file. These data are in units of mb/sr across 45 cm angles with a quoted error of $\sim 4 \%$. As the starting point for our fit, we take the real and imaginary volume parameters of \citep{Menet1971} for 49MeV incident energy (listed in Table~\ref{tab:init}). We then vary each of the six parameters one at a time to determine which gives the best fit (smallest $\chi ^2 / N$ and first derivative). We then fix this parameter by replacing the value in the potential defined in the \texttt{fresco} input file with this new value found by the fit. We proceed by individually varying the five remaining parameters to again determine which gives the smallest $\chi ^2 / N$ and first derivative, inputting this new value in the \texttt{fresco} input, repeating until all parameters have been fit. Table~\ref{tab:fitvol} reflects the order in which parameters were fit and the values, $\chi ^2 / N$ and first derivatives from each fit. The final fit compared to the data is shown in Figure~\ref{fig:fit1}.
+To explore \texttt{fresco}'s use for fitting to experimental results (via \texttt{sfresco}), we use the data for $ ^{100} \mathrm{Mo} (p,p)$ at $E_p = 49.4$ MeV from \citep{Sinha1972}. This dataset includes  elastic scattering at three incident energies: $19.85,30.3,49.45$ MeV. We take the $49.45$ MeV data to include in our \texttt{sfresco} input file. These data are in units of mb/sr across 45 cm angles with a quoted error of $\sim 4 \%$. As the starting point for our fit, we take the real and imaginary volume parameters of \citep{Menet1971} for 49MeV incident energy (listed in Table~\ref{tab:init}). We then vary each of the six parameters one at a time to determine which gives the best fit (smallest $\chi ^2 / N$). We then fix this parameter by replacing the value in the potential defined in the \texttt{fresco} input file with this new value found by the fit. We proceed by individually varying the five remaining parameters to again determine which gives the smallest $\chi ^2 / N$, then we input this new value into the \texttt{fresco} input, repeating until all parameters have been fit. Table~\ref{tab:fitvol} reflects the order in which parameters were fit and the values, $\chi ^2 / N$ and first derivatives from each fit. The resulting fit compared to the data is shown in Figure~\ref{fig:fits}.
 
-Some observations:
-\begin{itemize}
-	\item First derivative depends mainly interval over which parameter is allowed to vary
-	\item $\chi ^2 / N$ decreases slightly as each successive parameter is fixed
-	\item Fits are not great: i will try adding the SO to the potential and/or different data
-\end{itemize}
+Next, we use the results from the successive individual fits to initialize a three-parameter fit for the real volumne component. We iterate this three-parameter fit by inputting the results of one run for the initial values of the next until the $\chi ^2 /N$ and the fitted parameters change very little between iterations. We then use these values to update the definition of the real volume component in the \texttt{fresco} input file and repeat the interated three-parameter fit for the imaginary volume component. When this fit has converged, we allow the real volume parameters to vary again to ensure that changes to the imaginary part hasn't perturbed the fit (we noticed only negligible changes to the parameters and $\chi ^2 /N$). The resulting fit compared to the data is shown in Figure~\ref{fig:fits}.
+
+Finally, with the results of the previous step as initial parameters, we perform a six-parameter fit and iterate to arrive at our final fit (compared to the data in Figure~\ref{fig:fits}). Table~\ref{tab:fitvol} summarizes the values and $\chi ^2 / N$ at each point in the fitting process; there are only entries for the final values in each step not for each iteration.
+
+In terms of sensitivity to initialization, we studied the dependence of a single-iteration, single-parameter fit on the value given as its initial parameter. For the real and imaginary volume components, $r_0$ is the most sensitive - when its initial value is doubled, the fit converges to a value that is nearly double that reached via the original initialization. In contrast, doubling the initial value for $V$ or $a_0$, the fit recovers the same value reached via the original initialization. In a 3-parameter fit, the $r_0$ and $a_0$ parameters are most sensitive to their initial values - doubling them doubles their fitted values while doubling $V$ results in the same value as was found with its original initialization. From this qualitative investigation, we can conclude that initialization of the parameters in the exponential are most crucial to producing a good fit.
+
+In the second stage where three parameter fits are used for fine tuning, we found that doubling the initial parameters resulted in non-convergence for the real volume parameters while the imaginary volume parameters were recovered. We attribute this to the fact that there is little change between the imaginary volume parameters listed in the third section of Table~\ref{tab:fitvol} and their counterparts in the the first section.
+
+%Some observations:
+%\begin{itemize}
+%	\item First derivative depends mainly on interval over which parameter is allowed to vary and step size for next guess
+%	\item $\chi ^2 / N$ decreases slightly as each successive parameter is fixed
+%	\item Fits are not great: i will try adding the SO to the potential and/or different data
+%\end{itemize}
+
+
+%% INITIAL PARAMETERS %%
+
 
 \begin{table}
 \centering
-	\begin{tabular}{ c | c c c | c c c  }
-	$E _{\mathrm{in}}$ [MeV] & $ V _0$ & $ r _0$ & $ a _0$ & $W$ & $ r _{W} $ & $ a _{W} $\\
+	\begin{tabular}{ c | c | c c c | c c c | c c c | c c c |  }
+	Fit & $E _{\mathrm{in}}$ [MeV] & $ V _0$ & $ r _0$ & $ a _0$ & $W$ & $ r _{w} $ & $ a _{w} $ & $W_s$ &$ r _{ws}$ & $a_{ws}$ & $V_{so}$ & $r_{so}$ & $a_{so}$ \\
 \hline
-	49.0 &  47.0 &  1.16 &  0.75  &  5.6 & 1.37 &  0.51\\
+	VOL & 49.0 &  47.0 &  1.16 &  0.75  &  5.6 & 1.37 &  0.51 & & & & & & \\
+	SRF & 49.0 &  47.0 &  1.16 &  0.75 & & &  &  4.2 & 1.37 &  0.51 & & & \\
+\hline
+	SO & 49.0 & 43.8 & 1.16 & 0.77 & 5.5 & 1.36 & 0.42 & & & & 6.0 & 1.06 & 0.78\\
 \hline
 	\end{tabular}
-	\caption{Starting parameters for fitting real and imaginary volume.}
-	\label{tab:initvol}
+	\caption{Starting parameters for each component of the fit (from \citep{Menet1971}). VOL refers to fitting with both real and imaginary volume terms. SRF replaces the volume imaginary term with a surface imaginary. SO adds a spin orbit term to the results of the fit using volume real and imaginary terms.}
+	\label{tab:init}
 \end{table}
 
 
 %% FIT VOLUME IMAGINARY %%
+
+
 \begin{table}
 \centering
-	\begin{tabular}{ c | c | c c }
-	Parameter & Value & $\chi ^2 / N$ & First Derivative\\
+	\begin{tabular}{ c | c | c | c }
+	Fit Type & Parameter & Value & $\chi ^2 / N$\\
 \hline
-	$V$ & 43.8 & 155 & 0.3\\
-	$W$ & 5.5 & 153 & 0.002\\
-	$a _w$ & 0.42 & 151 & -2.91\\
-	$a _0$ & 0.77 & 148 & 0.2\\
-	$r _w$ & 1.36 & 144 & -0.52\\
-	$r _0$ & 1.16 & 144 & 0.26\\
+	\multirow{6}{*}{Indv. 1-par} & $V$ & 43.8 & 155 \\
+	& $W$ & 5.5 & 153 \\
+	& $a _w$ & 0.42 & 151\\
+	& $a _0$ & 0.77 & 148\\
+	& $r _w$ & 1.36 & 144 \\
+	& $r _0$ & 1.16 & 144 \\
+\hline
+	\multirow{3}{*}{3-par} & $V$ & 51.4 & \multirow{3}{*}{124} \\
+	& $r_0$ & 1.12 & \\
+	& $a_0$ & 0.92 & \\
+\hline
+	\multirow{3}{*}{3-par} & $W$ & 5.50 & \multirow{3}{*}{123}\\
+	& $r_{w}$ &1.35 & \\
+	& $a_w$ & 0.46 & \\
+\hline
+	\multirow{6}{*}{6-par} & $V$ & 52.7 &  \multirow{6}{*}{69} \\
+	& $r_0$ & 0.94  &\\
+	& $a_0$ & 1.0  &\\
+	& $W$ & 2.38 & \\
+	& $r_w$ & 1.31  &\\
+	& $a_w$ & 0.26  &\\
+\hline
+\hline
+	\multirow{9}{*}{9-par} & $V$ & 50.0 & \multirow{9}{*}{65}\\
+	& $ r_{0} $& 0.97 & \\
+	& $ a_{0}$ & 0.98 & \\
+	& $W$ & 2.54 & \\
+	& $ r _{w0}$ & 1.29 & \\
+	& $ a _{w0}$ & 0.12 & \\
+	& $ V_{so}$ & 3.32 & \\
+	& $ r _{so}$ & 1.13 & \\
+	& $ a _{so}$ & 0.92 & \\
 \hline
 	\end{tabular}
-	\caption{Results of fitting with a potential consisting of real and imaginary volume terms.}
+	\caption{Results of fitting with a potential consisting of real and imaginary volume terms (above the double lines). The final fit results with a spin-orbit component included are listed below the double lines. For brevity, we do not show the results of each intermediate fit between including the SO part and the final result.}
 	\label{tab:fitvol}
 \end{table}
 
 \begin{figure}
 \centering
-	\includegraphics[width=0.78\textwidth,angle=270]{plots/searchV1.eps}
-	\caption{The final fit of real and imaginary volume parameters to the proton elastic scattering data of \citep{Sinha1972}.}
-	\label{fig:fit1}
+	\includegraphics[width=0.78\textwidth,angle=270]{plots/SOfinal.eps}
+	\caption{This plot shows how the fit changes after each stage. The red line shows the fit results after the parameters have been individually varied. The green line shows the result after the adjustments from separate 3-parameter fits of the real and imaginary volume terms are included. The blue line shows result after adjustments from the 6-parameter fit are made. The black dashed line shows the result after the spin-orbit component is included. The light brown line shows the results of fitting with real volume and imaginary surface components. The black dots are the proton elastic scattering data from \citep{Sinha1972} (error bars are smaller than the points). The adjustments made going from fitting individual parameters to sets of three and then six improve the quality of the fit. Note that inclusion of the spin-orbit component does little to improve the fit.}
+	\label{fig:fits}
 \end{figure}
 
+
+%\begin{figure}
+%\centering
+%	\includegraphics[width=0.78\textwidth,angle=270]{plots/searchV1.eps}
+%	\caption{The result of individually fitting the six parameters of real and imaginary volume components of an OMP to the proton elastic scattering data of \citep{Sinha1972}.}
+%	\label{fig:fitv1}
+%\end{figure}
+
+%\begin{figure}
+%\centering
+%	\includegraphics[width=0.78\textwidth,angle=270]{plots/searchV2.eps}
+%	\caption{The result of iterated three-parameter fitting of real and imaginary volume components of an OMP to the proton elastic scattering data of \citep{Sinha1972}.}
+%	\label{fig:fitv2}
+%\end{figure}
+
+%\begin{figure}
+%\centering
+%	\includegraphics[width=0.78\textwidth,angle=270]{plots/searchV3.eps}
+%	\caption{The result of the iterated six-parameter fitting of real and imaginary volume components of an OMP to the proton elastic scattering data of \citep{Sinha1972}.}
+%	\label{fig:fitv3}
+%\end{figure}
+
+%\begin{figure}
+%\centering
+%	\includegraphics[width=0.78\textwidth,angle=270]{plots/searchSOfinal.eps}
+%	\caption{Fit including real and imaginary volume as well as spin-orbit components of an OMP compared to the proton elastic scattering data of \citep{Sinha1972}.}
+%	\label{fig:final}
+%\end{figure}
+
+
+\clearpage
+
+
 %% FIT SURFACE IMAGINARY %%
-\begin{table}
-\centering
-	\begin{tabular}{ c | c c c | c c c  }
-	$E _{\mathrm{in}}$ [MeV] & $ V _0$ & $ r _0$ & $ a _0$ & $W_s$ & $ r _{ws} $ & $ a _{ws} $\\
-\hline
-	49.0 &  47.0 &  1.16 &  0.75  &  4.2 & 1.37 &  0.51\\
-\hline
-	\end{tabular}
-	\caption{Starting parameters for fitting with surface imaginary.}
-	\label{tab:init}
-\end{table}
+
+
+%\begin{table}
+%\centering
+%	\begin{tabular}{ c | c c c | c c c  }
+%	$E _{\mathrm{in}}$ [MeV] & $ V _0$ & $ r _0$ & $ a _0$ & $W_s$ & $ r _{ws} $ & $ a _{ws} $\\
+%\hline
+%	49.0 &  47.0 &  1.16 &  0.75  &  4.2 & 1.37 &  0.51\\
+%\hline
+%	\end{tabular}
+%	\caption{Starting parameters for fitting with surface imaginary.}
+%	\label{tab:initSURF}
+%\end{table}
+
+We repeated the fitting procedure described above for an optical potential composed of a real volume term and an imaginary surface term (in place of the imaginary volume). Table~\ref{tab:fitsurf} presents our results and Figure~\ref{fig:fits} compares our fit to the data.
+
+While neither verison of the potential fits the data particularly well, replacing the imaginary volume component with an imaginary surface worsens the fit at large CM angles ($\geq 75 ^{\circ}$). For this reason, we add the spin-orbit component to our volume-volume results. To do this, we first add the spin-orbit component (\texttt{type}$=3$) to our potential definition in the \texttt{fresco} input file. We then iterate 3-parameter fits for the real and imaginary volume parts (these are minor adjustments), then perform a 3-parameter fit on the spin-orbit parameters. Next, we perform 6-parameter fits with many combinations of parameters from the three components. Finally, we perform a full 9-parameter fit and iterate to produce our final fit (see Table~\ref{tab:fitvol} and Figure~\ref{fig:fits}). Including the spin-orbit term does not drastically improve upon the fit shown in Figure~\ref{fig:fits}.
+
+
+%, however, it does shift the peaks for CM angles $\leq 50 ^{\circ}$ to better align them with the peaks in the data - at the same time disturbing the alignment of the two smaller peaks around $70 ^{\circ}$ and $100 ^{\circ}$.
 
 
 \begin{table}
 \centering
-	\begin{tabular}{ c | c | c c }
-	Parameter & Value & $\chi ^2 / N$ & First Derivative\\
+	\begin{tabular}{ c | c | c | c }
+	Fit Type & Parameter & Value & $\chi ^2 / N$ \\
 \hline
-	$a _{ws}$ & 1.49 & 258 & -2.9\\
-	$r _{ws}$ & 1.18 & 226 & -0.001\\
-	$a _0$ & 0.80 & 206 & -0.46\\
-	$r _0$ & 1.21 & 192 & -0.44\\
-	$W_s$ & 4.29 & 191 & -0.42\\
-	$V$ & 47.1 & 190 & 0.19\\
+	\multirow{6}{*}{Indv. 1-par} & $a _{ws}$ & 1.49 & 258 \\
+	& $r _{ws}$ & 1.18 & 226 \\
+	& $a _0$ & 0.80 & 206 \\
+	& $r _0$ & 1.21 & 192 \\
+	& $W_s$ & 4.29 & 191 \\
+	& $V$ & 47.1 & 190 \\
+\hline
+	\multirow{3}{*}{3-par} & $V$ & 44.2 & \multirow{3}{*}{105}\\
+	& $r_0$ & 1.41 & \\
+	& $a_0$ & 1.07 & \\
+\hline
+	\multirow{3}{*}{3-par} & $W_s$ & 4.83 & \multirow{3}{*}{104}\\
+	& $r_{ws}$ & 1.26 & \\
+	& $a_{ws}$ & 1.37 & \\
+\hline
+	\multirow{6}{*}{6-par} & $V$ & 45.3 & \multirow{6}{*}{103}\\
+	& $r_0$ & 1.38 & \\
+	& $a_0$ & 1.04 & \\
+	& $W_{s}$ & 3.8 & \\
+	& $r_{ws}$ & 1.26 & \\
+	& $a_{ws}$ & 1.36 \\
 \hline
 	\end{tabular}
 	\caption{Results fitting with a real volume and surface imaginary potential.}
 	\label{tab:fitsurf}
 \end{table}
 
-\begin{figure}
-\centering
-	\includegraphics[width=0.78\textwidth,angle=270]{plots/searchS1.eps}
-	\caption{The final fit of real volume and imaginary surface parameters to the proton elastic scattering data of \citep{Sinha1972}.}
-	\label{fig:fit2}
-\end{figure}
+%\begin{figure}
+%\centering
+%	\includegraphics[width=0.78\textwidth,angle=270]{plots/searchSF.eps}
+%	\caption{The final fit of real volume and imaginary surface parameters to the proton elastic scattering data of \citep{Sinha1972}.}
+%	\label{fig:fitsurf}
+%\end{figure}
+
+
+
+%% FIT SO %%
+
+
+%\begin{table}
+%\centering
+%	\begin{tabular}{ c | c | c c }
+%	Parameter & Value & $\chi ^2 / N$ & First Derivative\\
+%\hline
+%	$a _{so}$ & 1.71 & 130 & -0.81\\
+%	$V_{so}$ & 8.34 & 130 & 0.12\\
+%	$r _{so}$ & 1.04 & 192 & 1.1\\
+%\hline
+%	\end{tabular}
+%	\caption{Adding a spin-orbit term to the volume real and imaginary fit results.}
+%	\label{tab:fitso}
+%\end{table}
+
+%\begin{figure}
+%\centering
+%	\includegraphics[width=0.78\textwidth,angle=270]{plots/searchSO1.eps}
+%	\caption{The final fit, adding a spin-orbit term to the real volume and imaginary terms, compared to the proton elastic scattering data of \citep{Sinha1972} ($E_{p} = 49.4$ MeV).}
+%	\label{fig:fitso}
+%\end{figure}
+
+%\begin{table}
+%\centering
+%	\begin{tabular}{ c | c c c | c c c  }
+%	$E _{\mathrm{in}}$ [MeV] & $ V _0$ & $ r _0$ & $ a _0$ & $V_{so}$ & $ r _{so} $ & $ a _{so} $\\
+%\hline
+%	43.8 &  43.8 &  1.16 &  0.77  &  6.0 & 1.06 &  0.78\\
+%\hline
+%	\end{tabular}
+%	\caption{Starting parameters for adding spin-orbit to the volume (real and imaginary) fit.}
+%	\label{tab:initSO}
+%\end{table}
+
 
 
 
