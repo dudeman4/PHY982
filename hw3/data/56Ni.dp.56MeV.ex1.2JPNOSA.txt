@@ -1,0 +1,89 @@
+ENTRY            E1586   20120523   20120530   20120523       E068
+SUBENT        E1586001   20120523   20120530   20120523       E068
+BIB                 15         40
+TITLE      Single-particle states in 59Ni with 58Ni(d,p)59Ni
+           reaction at 56 MeV and neutron-bound-state complex
+           potentials
+AUTHOR     (O.Iwamoto, A.Nohtomi, Y.Uozumi, T.Sakae, M.Matoba,
+            M.Nakano, T.Maki, N.Koori)
+INSTITUTE  (2JPNKYU) Department of Nuclear Engineering
+           (2JPNKIT) School of Nursing and Technology
+           (2JPNTKS) Faculty of Integrated Arts and Sciences
+REFERENCE  (J,NP/A,576,(3),387,199409)
+MONITOR    (28-NI-58(D,EL)28-NI-58,,DA)
+MONIT-REF  (,N.Matsuoka+,J,NP/A,455,(3),413,198607)
+PART-DET   (P)
+INC-SOURCE (POLIS)
+SAMPLE     - Chemical-form of target is element.
+           - Physical-form of target is solid.
+           - Target-thickness is 0.473 mg/cm**2.
+           (28-NI-58,ENR=0.9989)
+FACILITY   (ISOCY,2JPNOSA) AVF cyclotron at Research Center for
+                           Nuclear Physics
+DETECTOR   (MAGSP) Magnetic spectrograph RAIDEN [H.Ikegami, et
+                   al. Nucl. Instr. Meth. 175(1980)33] with the
+                   focal-plane detector system KYUSHYU [M.Matoba,
+                   et al. Nucl. Instr. Meth. 180(1981)419]
+ERR-ANALYS Uncertainty in run-to-run variations of the integrated
+           beam current are on the order of a few percent.
+ADD-RES    E1586.002:28-NI-58(D,P)28-NI-59
+                     Spectroscopic factor
+                     See NRDF D1586 DATA,1 for detail.
+           E1586.069:28-NI-58(D,P)28-NI-59
+                     Spectroscopic factor (Sum of spectroscopic
+                     factor )
+                     See NRDF D1586 DATA,68 for detail.
+           (COMP) DWBA (Distorted wave Born approximation) (Code
+                  DWUCK [P.D.Kunz, code DWUCK, University of
+                  Colorado (unpublished)])
+STATUS     (APRVD) Proofread by Osamu Iwamoto (2005.09.26)
+HISTORY    (20050924T) Sr + On. Converted from NRDF D1586
+           (20051107A) At + Kc + Sr. Re-digitized
+           (20111020A) Nf. 001 MONITOR added, MONITOR in other
+                       subentries deleted
+ENDBIB              40
+COMMON               3          3
+EN         POL-BM     E-RSL
+MEV        NO-DIM     KEV
+ 56.        0.5        45.
+ENDCOMMON            3
+ENDSUBENT           47
+SUBENT        E1586004   20051219   20051219   20051219       E034
+BIB                  7         13
+REACTION   (28-NI-58(D,P)28-NI-59,PAR,DA)
+MONITOR    (28-NI-58(D,EL)28-NI-58,,DA)
+EN-SEC     ANG-CM is polar angle between beam and proton in
+           center of mass system
+           (E-LVL,28-NI-59)
+LEVEL-PROP (28-NI-59,E-LVL=0.879,SPIN=1.5,PARITY=-1.)
+MISC-COL   (MISC1) Transferred angular momentum (L)
+           (MISC2) Transferred spin (J)
+ERR-ANALYS (ERR-S) Statistical uncertainty
+           (ERR-SYS) Mainly due to the ambiguity of the procedure
+                     for fitting the theoretical to the
+                     experimental angular distributions
+STATUS     (CURVE) Data scanned from Fig.2, p393 in reference
+ENDBIB              13
+COMMON               4          3
+E-LVL      MISC1      MISC2      ERR-SYS
+MEV        NO-DIM     NO-DIM     PER-CENT
+ 0.879      1.0        1.5        10.0
+ENDCOMMON            3
+DATA                 3         12
+ANG-CM     DATA-CM    ERR-S
+ADEG       MB/SR      MB/SR
+  4.998E+00  4.688E+00  3.384E-01
+  8.077E+00  3.286E+00  2.372E-01
+  1.123E+01  2.271E+00  1.470E-01
+  1.416E+01  1.603E+00  1.038E-01
+  1.733E+01  1.454E+00  1.049E-01
+  2.033E+01  1.108E+00  7.997E-02
+  2.341E+01  7.876E-01  5.684E-02
+  2.648E+01  4.510E-01  3.255E-02
+  2.956E+01  2.693E-01  2.760E-02
+  3.355E+01  2.140E-01  2.859E-02
+  3.770E+01  2.375E-01  2.802E-02
+  4.184E+01  1.575E-01  1.735E-02
+ENDDATA             14
+ENDSUBENT           36
+ENDENTRY             2
